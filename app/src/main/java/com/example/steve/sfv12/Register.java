@@ -31,11 +31,7 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
-             //   builder.setMessage("Failed to registe")
-             //           .setNegativeButton("Retry", null)
-             //           .create()
-             //           .show();
+
                 String name = iName.getText().toString();
                 String username = iUsername.getText().toString();
                 String password = iPassword.getText().toString();
@@ -49,6 +45,11 @@ public class Register extends AppCompatActivity {
                             boolean resp = jObj.getBoolean("success");
 
                             if (resp){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+                                builder.setMessage("Success")
+                                        .setPositiveButton("OK", null)
+                                        .create()
+                                        .show();
                                 Intent intent = new Intent(Register.this, Login.class);
                                 Register.this.startActivity(intent);
                             }
@@ -61,6 +62,11 @@ public class Register extends AppCompatActivity {
                             }
                         }
                         catch(Exception e){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+                            builder.setMessage("Exception " +e.getMessage())
+                                    .setNegativeButton("Close", null)
+                                    .create()
+                                    .show();
                             e.printStackTrace();
                         }
                     }
