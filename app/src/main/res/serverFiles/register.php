@@ -1,12 +1,15 @@
 <?php
+include 'config.php';
 
-$con = mysqli_connect("host", "cpses_ds6ZK4VLXg", "dev-space-db06");
+$con = mysqli_connect($host, $user, $pass $db_name);
 
+$name = $_POST["name"];
+$email = $_POST["email"];
 $username = $_POST["username"];
 $password = $_POST["password"];
 
-$statement = mysqli_prepare($con, "INSERT INTO user (name, age, username, password) VALUES (?, ?, ?, ?)");
-mysqli_stmt_bind_param($statement, "siss", $name, $age, $username, $password);
+$statement = mysqli_prepare($con, "INSERT INTO user (name, email, username, password) VALUES (?, ?, ?, ?)");
+mysqli_stmt_bind_param($statement, "siss", $name, $email, $username, $password);
 mysqli_stmt_execute($statement);
 
 $response = array();
