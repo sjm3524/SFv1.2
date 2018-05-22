@@ -1,9 +1,10 @@
 package com.example.steve.sfv12;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable{
     List<User> friends;
     List<Event> events;
     List groups;

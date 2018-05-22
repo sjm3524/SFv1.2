@@ -1,5 +1,7 @@
 package com.example.steve.sfv12;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,25 +10,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainScreen extends AppCompatActivity {
 
+    Dialog popUpAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        popUpAction = new Dialog(this);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //fab.setBackgroundDrawable();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                actionPopUp(view);
             }
         });
+
+        Intent intent = getIntent();
+        User mainUser = (User)intent.getSerializableExtra("User");
 
         User steve = new User("stejwm", "Steve");
         User jimmy = new User("aismiJimmy", "Jimmy");
@@ -52,19 +60,38 @@ public class MainScreen extends AppCompatActivity {
         steve.addFriend(cross);
 
 
-        generateFriendList(steve);
-        genOtherLists(steve);
+        generateFriendList(mainUser);
+        genOtherLists(mainUser);
 
     }
-     View.OnClickListener friendButt = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            System.out.println(view.getId());
-            Button thisButt = (Button) findViewById(view.getId());
-            Snackbar.make(view, thisButt.getText() + "is your friend!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    };
+
+    public void actionPopUp(View v){
+        popUpAction.setContentView(R.layout.options_pop_up);
+        TextView close = (TextView) popUpAction.findViewById(R.id.close);
+        Button newFriend = (Button) popUpAction.findViewById(R.id.friend);
+        Button addEvent = (Button) popUpAction.findViewById(R.id.createEvent);
+        Button newGroup = (Button) popUpAction.findViewById(R.id.createGroup);
+
+        newFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent startMain = new Intent(MainScreen.this, AddFriends.class);
+                MainScreen.this.startActivity(startMain);
+
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popUpAction.dismiss();
+            }
+        });
+
+        popUpAction.show();
+    }
 
     public void generateFriendList(User user){
         for (User u : user.getFriends()){

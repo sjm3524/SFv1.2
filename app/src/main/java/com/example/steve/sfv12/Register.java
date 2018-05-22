@@ -41,15 +41,9 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jObj = new JSONObject(response);
-                            boolean resp = jObj.getBoolean("success");
 
-                            if (resp){
-                                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
-                                builder.setMessage("Success")
-                                        .setPositiveButton("OK", null)
-                                        .create()
-                                        .show();
+
+                            if (response.equals("true")){
                                 Intent intent = new Intent(Register.this, Login.class);
                                 Register.this.startActivity(intent);
                             }
@@ -60,6 +54,7 @@ public class Register extends AppCompatActivity {
                                         .create()
                                         .show();
                             }
+
                         }
                         catch(Exception e){
                             AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);

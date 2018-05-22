@@ -1,23 +1,28 @@
 <?php
-include 'config.php';
+//include 'config.php';
 
-$con = mysqli_connect($host, $user, $pass $db_name);
+//echo 'response';
+$con = mysqli_connect("localhost", "dbadmin01", "W0rldView!!", "dev-space-db06");
+
+mysqli_set_charset($con, 'utf8');
 
 $name = $_POST["name"];
 $email = $_POST["email"];
 $username = $_POST["username"];
 $password = $_POST["password"];
+//$response = array();
+$statement = mysqli_prepare($con, "INSERT INTO user (name, username, email, password) VALUES (?, ?, ?, ?)");
+//$response["success"] = false;
 
-//$statement = mysqli_prepare($con, "INSERT INTO user (name, email, username, password) VALUES (?, ?, ?, ?)");
+//$statement = mysqli_prepare($con, "INSERT INTO user (name, username, email, password) VALUES ($name, $username, $email, $password)";
 
-$statement = mysqli_prepare($con, "INSERT INTO user (name, username, email, password) VALUES ($name, $username, $email, $password)";
-
-mysqli_stmt_bind_param($statement, "siss", $name, $email, $username, $password);
+mysqli_stmt_bind_param($statement, "ssss", $name, $username, $email, $password);
 mysqli_stmt_execute($statement);
 
-$response = array();
-$response["success"] = true;
 
-echo json_encode($response);
+$response= "true";
+
+//echo $response;
+echo $response;
 
 ?>
