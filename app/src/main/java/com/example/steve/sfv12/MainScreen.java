@@ -70,7 +70,6 @@ public class MainScreen extends AppCompatActivity {
         for (User u : user.getFriends()){
 
             Button myButton = new Button(this);
-            myButton.setOnClickListener(friendButt);
             myButton.setText(u.getName());
 
             LinearLayout ll = (LinearLayout)findViewById(R.id.friendFinder);
