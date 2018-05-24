@@ -24,6 +24,7 @@ while(mysqli_stmt_fetch($statement)){
     $response["email"] = $age;
     $response["username"] = $username;
     $response["password"] = $password;
+	$response["user_ID"] = $userID;
 }
 echo json_encode($response);
 ?>

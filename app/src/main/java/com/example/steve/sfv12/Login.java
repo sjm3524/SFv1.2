@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.steve.sfv12.server_requests.LoginRequest;
 
 import org.json.JSONObject;
 
@@ -91,9 +92,12 @@ public class Login extends AppCompatActivity {
                         String name = jsonResponse.getString("name");
                         String username = jsonResponse.getString("username");
                         String email = jsonResponse.getString("email");
+                        String userID = jsonResponse.getString("user_ID");
                         String pass = jsonResponse.getString("password");
 
-                        User mainUser = new User(username, name);
+                        int user_ID = Integer.parseInt(userID);
+
+                        User mainUser = new User(user_ID, username, name, email);
 
                         SharedPreferences userData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = userData.edit();

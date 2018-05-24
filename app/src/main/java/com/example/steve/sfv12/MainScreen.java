@@ -7,13 +7,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainScreen extends AppCompatActivity {
-
+    User mainUser;
     Dialog popUpAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,36 +37,24 @@ public class MainScreen extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        User mainUser = (User)intent.getSerializableExtra("User");
-
-        User steve = new User("stejwm", "Steve");
-        User jimmy = new User("aismiJimmy", "Jimmy");
-        User trevor = new User("spitzy", "trevor");
-        User matt = new User("bigDickman", "matt");
-        User hoss = new User("bigHoss11", "Hoss");
-        User banjamin = new User("sossedBanj", "Banjamin");
-        User lost = new User("lostTard", "Lost");
-        User cross = new User("chrisCross", "Cross");
-
-        Event banger = new Event(EventType.PRIVATE, "Banger at my place", "It's gonna be lit pull through", "20 rawhide dr", "7", "9");
-        Event nasheys = new Event(EventType.PUBLIC, "Nashvilles", "Boolin at nashvilles", "Nashvilles", "11", "2");
+        mainUser= (User)intent.getSerializableExtra("User");
 
 
-        jimmy.addEvent(nasheys);
-        cross.addEvent(banger);
-        steve.addFriend(jimmy);
-        steve.addFriend(trevor);
-        steve.addFriend(matt);
-        steve.addFriend(hoss);
-        steve.addFriend(banjamin);
-        steve.addFriend(lost);
-        steve.addFriend(cross);
 
-
-        generateFriendList(mainUser);
-        genOtherLists(mainUser);
+        //generateFriendList(mainUser);
+        //genOtherLists(mainUser);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        MenuInflater menInf = getMenuInflater();
+        menInf.inflate(R.menu.app_bar_menu, menu);
+        return true;
+
+    }
+
 
     public void actionPopUp(View v){
         popUpAction.setContentView(R.layout.options_pop_up);
@@ -78,6 +69,8 @@ public class MainScreen extends AppCompatActivity {
 
 
                 Intent startMain = new Intent(MainScreen.this, AddFriends.class);
+                startMain.putExtra("User", mainUser);
+
                 MainScreen.this.startActivity(startMain);
 
             }

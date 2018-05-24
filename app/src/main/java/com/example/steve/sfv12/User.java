@@ -7,23 +7,24 @@ import java.util.List;
 public class User implements Serializable{
     List<User> friends;
     List<Event> events;
+    int userID;
     List groups;
      String name;
-     String userName;
+     String username;
+     String email;
 
 
-    public User(String userName, String name){
+    public User(int userID){
         this.name = name;
-        this.userName = userName;
-        friends = new ArrayList();
-        events = new ArrayList<>();
+
     }
 
-    public User(String userName, String name, List friends, List groups){
+    public User(int userID, String username, String name, String email){
+        this.userID = userID;
         this.name = name;
-        this.userName = userName;
-        this.friends = friends;
-        this.groups = groups;
+        this.username = username;
+        this.email = email;
+
     }
 
     public void addEvent(Event e){

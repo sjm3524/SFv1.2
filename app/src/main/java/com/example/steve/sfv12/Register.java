@@ -11,8 +11,7 @@ import android.widget.Button;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
+import com.example.steve.sfv12.server_requests.RegisterRequest;
 
 public class Register extends AppCompatActivity {
 
